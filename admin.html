@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Cultural Canon Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b1020;
+      color: #e4ebff;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      padding: 16px;
+      border-bottom: 1px solid #374151;
+    }
+
+    header h1 {
+      margin: 0 0 4px 0;
+      font-size: 1.4rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #111827;
+      border-radius: 12px;
+      border: 1px solid #374151;
+      padding: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #d1d5db;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.7);
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #4338ca;
+    }
+
+    .btn-secondary {
+      background: #111827;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+
+    .btn-secondary:hover {
+      background: #1f2937;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 900px) {
+      .two-column {
+        grid-template-columns: 1fr 2fr;
+      }
+    }
+
+    .list {
+      margin-top: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+    }
+
+    .list-item {
+      padding: 8px 10px;
+      border-bottom: 1px solid #111827;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .list-item:hover {
+      background: #020617;
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .list-item span {
+      display: inline-flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      border: 1px solid #4b5563;
+      color: #9ca3af;
+    }
+
+    .error {
+      color: #fecaca;
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    .success {
+      color: #bbf7d0;
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    small {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 700px) {
+      .field-row-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .divider {
+      height: 1px;
+      background: #1f2937;
+      margin: 10px 0;
+    }
+
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Cultural Canon – Admin</h1>
+    <p>Secure admin panel to manage categories and people in the canon.</p>
+  </header>
+
+  <main>
+    <!-- Authentication Card -->
+    <section class="card">
+      <h2>Sign In</h2>
+      <p>Use the Firebase Email + Password account configured in your Firebase Authentication settings.</p>
+
+      <div id="authSection">
+        <label for="emailInput">Email</label>
+        <input id="emailInput" type="email" autocomplete="username" />
+
+        <label for="passwordInput">Password</label>
+        <input id="passwordInput" type="password" autocomplete="current-password" />
+
+        <button id="loginBtn" class="btn-primary">Sign In</button>
+        <button id="logoutBtn" class="btn-secondary" style="display:none;">Sign Out</button>
+
+        <div id="authMessage" class="error" style="display:none;"></div>
+      </div>
+
+      <div style="margin-top: 8px;">
+        <small>
+          For security, only authenticated users can write to Firestore. Public visitors can read categories and people,
+          but cannot modify them.
+        </small>
+      </div>
+    </section>
+
+    <!-- Main Admin Interface -->
+    <section class="card">
+      <h2>Manage Canon Data</h2>
+      <p>
+        After signing in, use the panels below to manage categories and people records. Changes appear immediately in the
+        public explorer.
+      </p>
+
+      <div id="adminContent" style="display:none;">
+        <div class="two-column">
+          <!-- Categories Column -->
+          <div>
+            <h3>Categories</h3>
+            <p>High-level groupings such as "Foundational Figures" or "AI Ethics & Governance".</p>
+
+            <label for="categoryNameInput">Category Name</label>
+            <input id="categoryNameInput" type="text" placeholder="e.g. AI Ethics & Governance" />
+
+            <label for="categoryDescriptionInput">Description (optional)</label>
+            <textarea id="categoryDescriptionInput" placeholder="Short description for this category."></textarea>
+
+            <button id="saveCategoryBtn" class="btn-primary">Save Category</button>
+            <button id="clearCategoryFormBtn" class="btn-secondary">Clear Form</button>
+
+            <div id="categoryMessage" class="success" style="display:none;"></div>
+
+            <div class="divider"></div>
+
+            <div class="list" id="categoriesList"></div>
+          </div>
+
+          <!-- People Column -->
+          <div>
+            <h3>People</h3>
+            <p>Each person belongs to one category and includes an optional image, YouTube link, and Markdown bio.</p>
+
+            <div class="field-row field-row-2">
+              <div>
+                <label for="personNameInput">Name</label>
+                <input id="personNameInput" type="text" placeholder="Full name" />
+              </div>
+              <div>
+                <label for="personWikipediaUrlInput">Wikipedia URL</label>
+                <input id="personWikipediaUrlInput" type="text" placeholder="https://en.wikipedia.org/wiki/..." />
+              </div>
+            </div>
+
+            <div class="field-row field-row-2">
+              <div>
+                <label for="personDobInput">Date of Birth (optional)</label>
+                <input id="personDobInput" type="text" placeholder="e.g. 1956 or Jan 1, 1956" />
+              </div>
+              <div>
+                <label for="personDodInput">Date of Death (optional)</label>
+                <input id="personDodInput" type="text" placeholder="e.g. 2020 or Feb 15, 2020" />
+              </div>
+            </div>
+
+            <div class="field-row field-row-2">
+              <div>
+                <label for="personCategorySelect">Category</label>
+                <select id="personCategorySelect">
+                  <option value="">Select a category...</option>
+                </select>
+              </div>
+              <div>
+                <label for="personTagsInput">Tags (comma-separated, optional)</label>
+                <input id="personTagsInput" type="text" placeholder="e.g. deep learning, ethics, policy" />
+              </div>
+            </div>
+
+            <label for="personImageUrlInput">Image URL (optional)</label>
+            <input id="personImageUrlInput" type="text" placeholder="https://..." />
+
+            <label for="personYoutubeUrlInput">YouTube URL (optional)</label>
+            <input id="personYoutubeUrlInput" type="text" placeholder="https://www.youtube.com/watch?v=..." />
+
+            <label for="personBioInput">Bio (Markdown supported)</label>
+            <textarea id="personBioInput" placeholder="Short, classroom-friendly biography in Markdown."></textarea>
+
+            <button id="savePersonBtn" class="btn-primary">Save Person</button>
+            <button id="clearPersonFormBtn" class="btn-secondary">Clear Form</button>
+
+            <div id="personMessage" class="success" style="display:none;"></div>
+
+            <div class="divider"></div>
+
+            <div class="list" id="peopleList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+    import { initializeAdminPage } from "./admin.js";
+
+    // ✅ Use the same Firebase config as the public page, imported from a local file
+    import { firebaseConfig } from "./firebase-config.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Wire up the admin logic from admin.js
+    initializeAdminPage({ db, auth });
+  </script>
+</body>
+</html>
